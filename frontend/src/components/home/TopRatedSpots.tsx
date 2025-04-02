@@ -1,6 +1,6 @@
 // src/components/home/TopRatedSpots.tsx
 import React from 'react';
-import { BookmarkIcon } from './icons';
+import { FaBookmark } from 'react-icons/fa';
 
 type ChargingSpotProps = {
   id: number;
@@ -31,7 +31,7 @@ const ChargingSpotCard: React.FC<ChargingSpotProps> = ({
         
         <div className="absolute top-2 right-2">
           <button aria-label="Bookmark this charging spot" className="text-white hover:text-yellow-400 transition-colors">
-            <BookmarkIcon filled={isBookmarked} />
+          <FaBookmark className={`h-6 w-6 ${isBookmarked ? 'text-yellow-400' : 'text-gray-400'}`} />
           </button>
         </div>
         
@@ -48,7 +48,7 @@ const ChargingSpotCard: React.FC<ChargingSpotProps> = ({
           <p className="text-white">
             from <span className="font-semibold">{price}</span>/hour
           </p>
-          <button className="text-gray-400 hover:text-white">
+          <button aria-label="View charging spot details" className="text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
