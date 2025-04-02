@@ -9,9 +9,9 @@ type MainLayoutProps = {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       <Header />
-      <main>
+      <main className="flex-grow">
         {children}
       </main>
       <Footer />
