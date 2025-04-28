@@ -1,5 +1,9 @@
 // src/components/layout/Header.tsx
 import React from 'react';
+import { Link } from 'react-router-dom';
+
+
+
 
 const Header: React.FC = () => {
   return (
@@ -13,12 +17,16 @@ const Header: React.FC = () => {
         </nav>
       </div>
       <div className="flex space-x-2">
+        <Link to="/signup">
         <button className="px-4 py-1 bg-transparent border border-white rounded-full text-white hover:bg-white hover:text-gray-900 transition-colors">
-          Sign up
+          Sign Up
         </button>
+        </Link>
+        <Link to="/login">
         <button className="px-4 py-1 bg-orange-500 rounded-full text-white hover:bg-orange-600 transition-colors">
           Log in
         </button>
+        </Link>
       </div>
     </header>
   );
