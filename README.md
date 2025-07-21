@@ -9,7 +9,7 @@
 *Discover over 1 million charging stations worldwide with real-time availability*
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-FF6B35?style=for-the-badge&logoColor=white)](https://chargease.netlify.app/)
-[![Documentation](https://img.shields.io/badge/📖_Documentation-1F2937?style=for-the-badge&logoColor=white)](https://docs.chargeease.com)
+[![Documentation](https://img.shields.io/badge/📖_Documentation-1F2937?style=for-the-badge&logoColor=white)]([https://docs.chargeease.com](https://drive.google.com/drive/folders/1wQ-bhPedmQzEgTw-ugqGbJezAWTuHBjB?usp=sharing))
 
 ---
 
@@ -894,7 +894,7 @@ GET /users/history?limit=10&offset=0
 }
 ```
 
-For complete API documentation, visit: [📖 API Docs](https://docs.chargeease.com/api)
+For complete API documentation, visit: [📖 API Docs](https://docs.chargeease.com/api](https://drive.google.com/drive/folders/1wQ-bhPedmQzEgTw-ugqGbJezAWTuHBjB?usp=sharing))
 
 ---
 
@@ -989,7 +989,7 @@ ChargeEase supports multiple languages and regions:
 ## 📞 **Support & Contact**
 
 ### 🤝 **Get Help**
-- 📖 [Documentation](https://docs.chargeease.com)
+- 📖 [Documentation]([https://docs.chargeease.com](https://drive.google.com/drive/folders/1wQ-bhPedmQzEgTw-ugqGbJezAWTuHBjB?usp=sharing))
 - 💬 [Discord Community](https://discord.gg/chargeease)
 - 📧 [Email Support](mailto:support@chargeease.com)
 - 🎫 [GitHub Issues](https://github.com/yourusername/chargeease/issues)
