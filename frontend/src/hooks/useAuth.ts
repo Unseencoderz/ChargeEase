@@ -1,7 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { User, LoginForm, SignupForm } from '../types';
-import { authService, userService } from '../services/api';
 import { storage } from '../utils/helpers';
 import { STORAGE_KEYS, SUCCESS_MESSAGES } from '../utils/constants';
 
@@ -28,114 +26,122 @@ export const useAuth = () => {
 export const useAuthProvider = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Check for existing token on app start
+  // Check for existing auth on app start
   useEffect(() => {
     const token = storage.get<string>(STORAGE_KEYS.AUTH_TOKEN);
-    if (token) {
+    const userData = storage.get<User>('chargeease_user');
+    
+    if (token && userData) {
+      setUser(userData);
       setIsAuthenticated(true);
-      // Fetch user profile if token exists
-      userService.getProfile()
-        .then(userData => {
-          setUser(userData);
-        })
-        .catch(() => {
-          // Token might be invalid, clear it
-          storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-          setIsAuthenticated(false);
-        });
     }
+    setIsLoading(false);
   }, []);
 
-  // User profile query
-  const { 
-    data: userData, 
-    isLoading: isUserLoading,
-    refetch: refetchUser 
-  } = useQuery({
-    queryKey: ['user', 'profile'],
-    queryFn: userService.getProfile,
-    enabled: isAuthenticated,
-    onSuccess: (data) => {
-      setUser(data);
-    },
-    onError: () => {
-      // If profile fetch fails, user might be logged out
-      setIsAuthenticated(false);
-      setUser(null);
-      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-    }
-  });
-
-  // Login mutation
-  const loginMutation = useMutation({
-    mutationFn: authService.login,
-    onSuccess: (data) => {
-      setUser(data.user);
-      setIsAuthenticated(true);
-      storage.set(STORAGE_KEYS.AUTH_TOKEN, data.token);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-    },
-    onError: (error) => {
-      console.error('Login failed:', error);
-      throw error;
-    }
-  });
-
-  // Signup mutation
-  const signupMutation = useMutation({
-    mutationFn: authService.signup,
-    onSuccess: (data) => {
-      setUser(data.user);
-      setIsAuthenticated(true);
-      storage.set(STORAGE_KEYS.AUTH_TOKEN, data.token);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-    },
-    onError: (error) => {
-      console.error('Signup failed:', error);
-      throw error;
-    }
-  });
-
-  // Logout mutation
-  const logoutMutation = useMutation({
-    mutationFn: authService.logout,
-    onSuccess: () => {
-      setUser(null);
-      setIsAuthenticated(false);
-      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      queryClient.clear();
-    },
-    onError: (error) => {
-      // Even if logout fails on server, clear local state
-      console.error('Logout error:', error);
-      setUser(null);
-      setIsAuthenticated(false);
-      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      queryClient.clear();
-    }
-  });
-
   const login = async (credentials: LoginForm) => {
-    await loginMutation.mutateAsync(credentials);
+    setIsLoading(true);
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Accept any email/password combination
+    const mockUser: User = {
+      id: '1',
+      email: credentials.email,
+      name: credentials.email.split('@')[0], // Use email prefix as name
+      phone: '+1234567890',
+      vehicles: [
+        {
+          id: '1',
+          make: 'Tesla',
+          model: 'Model 3',
+          year: 2023,
+          batteryCapacity: 75,
+          connectorTypes: ['CCS', 'Tesla'],
+          estimatedRange: 300,
+          isDefault: true,
+        }
+      ],
+      preferences: {
+        units: 'imperial',
+        language: 'en',
+        notifications: {
+          email: true,
+          push: true,
+          sms: false,
+        },
+      },
+      membershipLevel: 'Free',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    // Store user data and token
+    const mockToken = 'mock-jwt-token-' + Date.now();
+    storage.set(STORAGE_KEYS.AUTH_TOKEN, mockToken);
+    storage.set('chargeease_user', mockUser);
+    
+    setUser(mockUser);
+    setIsAuthenticated(true);
+    setIsLoading(false);
   };
 
   const signup = async (userData: SignupForm) => {
-    await signupMutation.mutateAsync(userData);
+    setIsLoading(true);
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Accept any signup data
+    const mockUser: User = {
+      id: '1',
+      email: userData.email,
+      name: userData.name,
+      phone: userData.phone,
+      vehicles: [],
+      preferences: {
+        units: 'imperial',
+        language: 'en',
+        notifications: {
+          email: true,
+          push: true,
+          sms: false,
+        },
+      },
+      membershipLevel: 'Free',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    // Store user data and token
+    const mockToken = 'mock-jwt-token-' + Date.now();
+    storage.set(STORAGE_KEYS.AUTH_TOKEN, mockToken);
+    storage.set('chargeease_user', mockUser);
+    
+    setUser(mockUser);
+    setIsAuthenticated(true);
+    setIsLoading(false);
   };
 
   const logout = async () => {
-    await logoutMutation.mutateAsync();
+    setIsLoading(true);
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    setUser(null);
+    setIsAuthenticated(false);
+    storage.remove(STORAGE_KEYS.AUTH_TOKEN);
+    storage.remove('chargeease_user');
+    setIsLoading(false);
   };
 
   const refreshUser = async () => {
-    await refetchUser();
+    // For now, just return the current user
+    return;
   };
-
-  const isLoading = isUserLoading || loginMutation.isPending || signupMutation.isPending || logoutMutation.isPending;
 
   return {
     user,
