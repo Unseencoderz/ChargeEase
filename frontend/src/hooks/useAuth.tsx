@@ -149,6 +149,6 @@ export const useAuthProvider = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const auth = useAuthProvider();
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  const auth = useAuthProvider(); // auth is typed here as AuthContextType
+  return <AuthContext.Provider value={auth as AuthContextType}>{children}</AuthContext.Provider>;
 };
