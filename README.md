@@ -4,6 +4,9 @@
 
 ![ChargeEase Logo](https://img.shields.io/badge/⚡-ChargeEase-orange?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEzIDEwVjNMNDE0aDd2N2w5LTExaC03eiIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+)
 
+<!-- Once you upload your custom logo, replace the above with: -->
+<!-- ![ChargeEase Logo](./frontend/src/assets/logos/chargeease-logo-primary.png) -->
+
 **Find your nearest EV charging spot with ease**
 
 *Discover over 1 million charging stations worldwide!*
@@ -236,31 +239,97 @@ The project uses **TailwindCSS** for styling with a focus on:
 
 ---
 
-## 📱 Screenshots
+## 📱 Screenshots & Visuals
 
 <div align="center">
 
 ### 🏠 **Home Page**
 *Main landing page with hero section and search functionality*
 
-![Home Page](https://via.placeholder.com/800x400/374151/ffffff?text=ChargeEase+Home+Page)
+![Home Page](./frontend/src/assets/screenshots/home-page.png)
+<!-- Alternative: Upload your home page screenshot to ./frontend/src/assets/screenshots/home-page.png -->
 
 ### 🔍 **Search Interface**
 *Advanced search with location, dates, and driver preferences*
 
-![Search Interface](https://via.placeholder.com/800x300/374151/ffffff?text=Search+Interface)
+![Search Interface](./frontend/src/assets/screenshots/search-interface.png)
+<!-- Alternative: Upload your search interface screenshot to ./frontend/src/assets/screenshots/search-interface.png -->
 
 ### 🏆 **Popular Destinations**
 *Curated list of trending EV-friendly locations*
 
-![Popular Destinations](https://via.placeholder.com/800x300/374151/ffffff?text=Popular+Destinations)
+![Popular Destinations](./frontend/src/assets/screenshots/popular-destinations.png)
+<!-- Alternative: Upload your popular destinations screenshot to ./frontend/src/assets/screenshots/popular-destinations.png -->
 
 ### 👥 **Charging Club**
 *Membership benefits and exclusive offers*
 
-![Charging Club](https://via.placeholder.com/800x200/374151/ffffff?text=Charging+Club+Membership)
+![Charging Club](./frontend/src/assets/screenshots/charging-club.png)
+<!-- Alternative: Upload your charging club screenshot to ./frontend/src/assets/screenshots/charging-club.png -->
+
+### 🎨 **App Demo**
+*Watch ChargeEase in action*
+
+![App Demo](./frontend/src/assets/screenshots/app-demo.gif)
+<!-- Upload your app demo GIF to ./frontend/src/assets/screenshots/app-demo.gif -->
 
 </div>
+
+---
+
+## 🖼️ **Logo & Branding**
+
+<div align="center">
+
+### ⚡ ChargeEase Logo Variations
+
+| **Primary Logo** | **Icon Only** | **Light Version** |
+|:---:|:---:|:---:|
+| ![Primary Logo](./frontend/src/assets/logos/chargeease-logo-primary.png) | ![Icon](./frontend/src/assets/logos/chargeease-icon.png) | ![Light Logo](./frontend/src/assets/logos/chargeease-logo-light.png) |
+
+### 🎨 **Brand Colors**
+- **Primary Orange**: `#F97316` 🟠
+- **Dark Background**: `#374151` ⚫
+- **Light Text**: `#FFFFFF` ⚪
+- **Gray Accent**: `#6B7280` 🔘
+
+</div>
+
+---
+
+## 📤 **Adding Images & Assets**
+
+To add your project images and logos to this README:
+
+### 📁 **Directory Structure**
+```
+frontend/src/assets/
+├── 📁 screenshots/          # App screenshots
+│   ├── home-page.png
+│   ├── search-interface.png
+│   ├── popular-destinations.png
+│   ├── charging-club.png
+│   └── app-demo.gif
+├── 📁 logos/               # Brand logos
+│   ├── chargeease-logo-primary.png
+│   ├── chargeease-icon.png
+│   └── chargeease-logo-light.png
+└── 📁 icons/               # App icons
+    ├── favicon.ico
+    └── app-icon.png
+```
+
+### 📸 **Upload Instructions**
+1. Take screenshots of your app's main features
+2. Create/design your logos and icons
+3. Upload them to the appropriate directories above
+4. The README will automatically display them!
+
+### 📏 **Recommended Image Sizes**
+- **Screenshots**: 800px wide (PNG format)
+- **Logos**: 200-400px wide (PNG/SVG format)
+- **Icons**: 64px, 128px, 256px (PNG/ICO format)
+- **Demo GIF**: Max 5MB, 800px wide
 
 ---
 
