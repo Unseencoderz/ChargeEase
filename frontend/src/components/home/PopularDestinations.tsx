@@ -2,45 +2,46 @@
 import React from 'react';
 
 type DestinationProps = {
-  country: string;
+  city: string;
   imageUrl: string;
 };
 
-const DestinationCard: React.FC<DestinationProps> = ({ country, imageUrl }) => {
+const DestinationCard: React.FC<DestinationProps> = ({ city, imageUrl }) => {
   return (
     <div className="relative rounded-lg overflow-hidden h-40 md:h-60 group cursor-pointer">
-      {/* We would use actual images in a real implementation */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
         style={{ backgroundImage: `url(${imageUrl})` }}
       ></div>
-      <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-30 transition-opacity"></div>
-      <div className="absolute bottom-3 left-3 bg-white px-3 py-1 rounded-full text-sm font-medium">
-        {country}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-70 transition-opacity"></div>
+      <div className="absolute bottom-4 left-4 bg-white px-4 py-2 rounded-lg text-sm font-medium shadow-md">
+        {city}
       </div>
     </div>
   );
 };
 
 const PopularDestinations: React.FC = () => {
-  // In a real implementation, this would come from an API
   const destinations = [
-    { id: 1, country: 'USA', imageUrl: '/images/destinations/usa.jpg' },
-    { id: 2, country: 'Japan', imageUrl: '/images/destinations/japan.jpg' },
-    { id: 3, country: 'Italy', imageUrl: '/images/destinations/italy.jpg' },
-    { id: 4, country: 'Germany', imageUrl: '/images/destinations/germany.jpg' },
-    { id: 5, country: 'France', imageUrl: '/images/destinations/france.jpg' },
-    { id: 6, country: 'Australia', imageUrl: '/images/destinations/australia.jpg' },
+    { id: 1, city: 'Mumbai', imageUrl: 'https://unsplash.com/photos/1-aA2Fadydc' },
+    { id: 2, city: 'Delhi', imageUrl: 'https://unsplash.com/photos/1-aA2Fadydc' },
+    { id: 3, city: 'Bangalore', imageUrl: 'https://unsplash.com/photos/1-aA2Fadydc' },
+    { id: 4, city: 'Hyderabad', imageUrl: 'https://unsplash.com/photos/1-aA2Fadydc' },
+    { id: 5, city: 'Chennai', imageUrl: 'https://unsplash.com/photos/1-aA2Fadydc' },
+    { id: 6, city: 'Kolkata', imageUrl: 'https://unsplash.com/photos/1-aA2Fadydc' },
   ];
+  
   
   return (
     <section className="mt-10">
-      <h2 className="text-lg font-semibold mb-4 text-white">Popular charging destinations</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <h2 className="text-lg font-semibold mb-4 text-white">
+        Popular EV Charging Destinations in India
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {destinations.map((destination) => (
           <DestinationCard 
             key={destination.id}
-            country={destination.country}
+            city={destination.city}
             imageUrl={destination.imageUrl}
           />
         ))}
