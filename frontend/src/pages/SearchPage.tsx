@@ -13,6 +13,7 @@ import {
   DollarSign
 } from 'lucide-react';
 import SearchBar from '../components/home/SearchBar';
+import GoogleMap from '../components/common/GoogleMap';
 import Button from '../components/ui/Button';
 import { useQuery } from '@tanstack/react-query';
 import { stationService } from '../services/api';
@@ -154,19 +155,20 @@ const SearchPage: React.FC = () => {
     </motion.div>
   );
 
-  const MapView: React.FC = () => (
-    <div className="h-[600px] bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-      <div className="text-center">
-        <Map className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-600 dark:text-gray-400 mb-2">
-          Interactive Map
-        </h3>
-        <p className="text-sm text-gray-500">
-          Map integration will be implemented with Mapbox or Google Maps
-        </p>
-      </div>
-    </div>
-  );
+  const MapView: React.FC = () => {
+    const center = filters.location ? 
+      { lat: filters.location.latitude, lng: filters.location.longitude } : 
+      { lat: 37.7749, lng: -122.4194 }; // Default to San Francisco
+
+    return (
+      <GoogleMap
+        center={center}
+        height="600px"
+        showControls={true}
+        searchQuery="EV charging stations"
+      />
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
