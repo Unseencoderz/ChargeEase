@@ -11,14 +11,15 @@ import StationDetailsPage from './pages/StationDetailsPage';
 import BookingPage from './pages/BookingPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
+import WalletPage from './pages/WalletPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/AboutPage';
 import MembershipPage from './pages/MembershipPage';
 
 // Auth pages
 import LoginPage from './pages/auth/LoginPage';
-import SignupPage from './pages/auth/LoginPage';
-import ForgotPasswordPage from './pages/auth/LoginPage';
+import SignupPage from './pages/SignupPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 
 // Components
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -58,6 +59,11 @@ const App: React.FC = () => {
               <Route path="/bookings" element={
                 <ProtectedRoute>
                   <BookingPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/wallet" element={
+                <ProtectedRoute>
+                  <WalletPage />
                 </ProtectedRoute>
               } />
 
