@@ -15,7 +15,7 @@ import {
   AlertCircle,
   CheckCircle,
   Loader2,
-  Google,
+  Chrome,
   Apple
 } from 'lucide-react';
 import Button from '../../components/ui/Button';
@@ -78,7 +78,7 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  const handleSocialLogin = async (provider: 'google' | 'apple') => {
+  const handleSocialLogin = async (provider: 'Chrome' | 'apple') => {
     setIsLoading(true);
     try {
       // Simulate social login
@@ -267,12 +267,12 @@ const LoginPage: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <Button
               variant="glass"
-              onClick={() => handleSocialLogin('google')}
+              onClick={() => handleSocialLogin('Chrome')}
               disabled={isLoading}
-              leftIcon={<Google className="w-5 h-5" />}
+              leftIcon={<Chrome className="w-5 h-5" />}
               className="group"
             >
-              Google
+              Chrome
             </Button>
             <Button
               variant="glass"
