@@ -1,7 +1,7 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { User, LoginForm, SignupForm } from '../types';
-import { authService, userService } from '../services/api';
+// import { authService, userService } from '../services/api';
 import { storage } from '../utils/helpers';
 import { STORAGE_KEYS, SUCCESS_MESSAGES } from '../utils/constants';
 
@@ -28,114 +28,188 @@ export const useAuth = () => {
 export const useAuthProvider = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
-  // Check for existing token on app start
+  // Check for existing session on app start
   useEffect(() => {
+    const savedUser = storage.get<User>(STORAGE_KEYS.USER_DATA);
     const token = storage.get<string>(STORAGE_KEYS.AUTH_TOKEN);
-    if (token) {
+    
+    if (savedUser && token) {
+      setUser(savedUser);
       setIsAuthenticated(true);
-      // Fetch user profile if token exists
-      userService.getProfile()
-        .then(userData => {
-          setUser(userData);
-        })
-        .catch(() => {
-          // Token might be invalid, clear it
-          storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-          setIsAuthenticated(false);
-        });
     }
   }, []);
 
-  // User profile query
-  const { 
-    data: userData, 
-    isLoading: isUserLoading,
-    refetch: refetchUser 
-  } = useQuery({
-    queryKey: ['user', 'profile'],
-    queryFn: userService.getProfile,
-    enabled: isAuthenticated,
-    onSuccess: (data) => {
-      setUser(data);
-    },
-    onError: () => {
-      // If profile fetch fails, user might be logged out
-      setIsAuthenticated(false);
-      setUser(null);
-      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-    }
-  });
-
-  // Login mutation
-  const loginMutation = useMutation({
-    mutationFn: authService.login,
-    onSuccess: (data) => {
-      setUser(data.user);
-      setIsAuthenticated(true);
-      storage.set(STORAGE_KEYS.AUTH_TOKEN, data.token);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-    },
-    onError: (error) => {
-      console.error('Login failed:', error);
-      throw error;
-    }
-  });
-
-  // Signup mutation
-  const signupMutation = useMutation({
-    mutationFn: authService.signup,
-    onSuccess: (data) => {
-      setUser(data.user);
-      setIsAuthenticated(true);
-      storage.set(STORAGE_KEYS.AUTH_TOKEN, data.token);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-    },
-    onError: (error) => {
-      console.error('Signup failed:', error);
-      throw error;
-    }
-  });
-
-  // Logout mutation
-  const logoutMutation = useMutation({
-    mutationFn: authService.logout,
-    onSuccess: () => {
-      setUser(null);
-      setIsAuthenticated(false);
-      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      queryClient.clear();
-    },
-    onError: (error) => {
-      // Even if logout fails on server, clear local state
-      console.error('Logout error:', error);
-      setUser(null);
-      setIsAuthenticated(false);
-      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
-      storage.remove(STORAGE_KEYS.REFRESH_TOKEN);
-      queryClient.clear();
-    }
-  });
-
   const login = async (credentials: LoginForm) => {
-    await loginMutation.mutateAsync(credentials);
+    setIsLoading(true);
+    try {
+      // MOCK LOGIN - Replace with actual API call when backend is ready
+      /*
+      // Real implementation when backend is ready:
+      const response = await authService.login(credentials);
+      const { user, token } = response;
+      storage.set(STORAGE_KEYS.AUTH_TOKEN, token);
+      storage.set(STORAGE_KEYS.USER_DATA, user);
+      setUser(user);
+      setIsAuthenticated(true);
+      */
+      
+      // Mock implementation for frontend testing
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
+      
+      const mockUser: User = {
+        id: '1',
+        name: 'John Doe',
+        email: credentials.email,
+        phone: '+1 (555) 123-4567',
+        avatar: null,
+        membershipLevel: 'Premium',
+        createdAt: new Date().toISOString(),
+        vehicles: [],
+        preferences: {
+          units: 'imperial',
+          notifications: {
+            email: true,
+            push: true,
+            sms: false
+          }
+        }
+      };
+      
+      const mockToken = 'mock_jwt_token_' + Date.now();
+      
+      // Save to localStorage for persistence
+      storage.set(STORAGE_KEYS.AUTH_TOKEN, mockToken);
+      storage.set(STORAGE_KEYS.USER_DATA, mockUser);
+      
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      
+      console.log('Mock login successful:', { user: mockUser, token: mockToken });
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw new Error('Invalid email or password');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const signup = async (userData: SignupForm) => {
-    await signupMutation.mutateAsync(userData);
+    setIsLoading(true);
+    try {
+      // MOCK SIGNUP - Replace with actual API call when backend is ready
+      /*
+      // Real implementation when backend is ready:
+      const response = await authService.signup(userData);
+      const { user, token } = response;
+      storage.set(STORAGE_KEYS.AUTH_TOKEN, token);
+      storage.set(STORAGE_KEYS.USER_DATA, user);
+      setUser(user);
+      setIsAuthenticated(true);
+      */
+      
+      // Mock implementation for frontend testing
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API delay
+      
+      const mockUser: User = {
+        id: '2',
+        name: `${userData.firstName} ${userData.lastName}`,
+        email: userData.email,
+        phone: userData.phone || '',
+        avatar: null,
+        membershipLevel: 'Basic',
+        createdAt: new Date().toISOString(),
+        vehicles: [],
+        preferences: {
+          units: 'imperial',
+          notifications: {
+            email: true,
+            push: userData.newsletter || false,
+            sms: false
+          }
+        }
+      };
+      
+      const mockToken = 'mock_jwt_token_' + Date.now();
+      
+      // Save to localStorage for persistence
+      storage.set(STORAGE_KEYS.AUTH_TOKEN, mockToken);
+      storage.set(STORAGE_KEYS.USER_DATA, mockUser);
+      
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      
+      console.log('Mock signup successful:', { user: mockUser, token: mockToken });
+    } catch (error) {
+      console.error('Signup failed:', error);
+      throw new Error('Failed to create account');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const logout = async () => {
-    await logoutMutation.mutateAsync();
+    setIsLoading(true);
+    try {
+      // MOCK LOGOUT - Replace with actual API call when backend is ready
+      /*
+      // Real implementation when backend is ready:
+      await authService.logout();
+      */
+      
+      // Mock implementation
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Clear storage
+      storage.remove(STORAGE_KEYS.AUTH_TOKEN);
+      storage.remove(STORAGE_KEYS.USER_DATA);
+      
+      setUser(null);
+      setIsAuthenticated(false);
+      
+      // Clear query cache
+      queryClient.clear();
+      
+      console.log('Mock logout successful');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const refreshUser = async () => {
-    await refetchUser();
+    if (!isAuthenticated) return;
+    
+    setIsLoading(true);
+    try {
+      // MOCK REFRESH - Replace with actual API call when backend is ready
+      /*
+      // Real implementation when backend is ready:
+      const updatedUser = await userService.getProfile();
+      setUser(updatedUser);
+      storage.set(STORAGE_KEYS.USER_DATA, updatedUser);
+      */
+      
+      // Mock implementation
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
+      const currentUser = storage.get<User>(STORAGE_KEYS.USER_DATA);
+      if (currentUser) {
+        setUser(currentUser);
+      }
+      
+      console.log('Mock user refresh successful');
+    } catch (error) {
+      console.error('Failed to refresh user:', error);
+      // If refresh fails, logout user
+      await logout();
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const isLoading = isUserLoading || loginMutation.isPending || signupMutation.isPending || logoutMutation.isPending;
 
   return {
     user,
@@ -148,7 +222,16 @@ export const useAuthProvider = () => {
   };
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const auth = useAuthProvider(); // auth is typed here as AuthContextType
-  return <AuthContext.Provider value={auth as AuthContextType}>{children}</AuthContext.Provider>;
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const auth = useAuthProvider();
+
+  return (
+    <AuthContext.Provider value={auth}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
