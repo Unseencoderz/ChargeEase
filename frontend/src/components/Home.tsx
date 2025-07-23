@@ -1,17 +1,19 @@
-// src/pages/Home.tsx
+// src/components/Home.tsx
 import React from 'react';
-import Hero from '../components/home/Hero';
-import PopularDestinations from '../components/home/PopularDestinations';
-import TopRatedSpots from '../components/home/TopRatedSpots';
-import ChargingClub from '../components/home/ChargingClub';
+import Hero from './home/Hero';
+import PopularDestinations from './home/PopularDestinations';
+import TopRatedSpots from './home/TopRatedSpots';
+import ChargingClub from './home/ChargingClub';
 
 const Home: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div>
       <Hero />
-      <PopularDestinations />
-      <TopRatedSpots />
-      <ChargingClub />
+      <div className="container mx-auto px-4 py-12 space-y-16">
+        <PopularDestinations />
+        <TopRatedSpots />
+        <ChargingClub />
+      </div>
     </div>
   );
 };
