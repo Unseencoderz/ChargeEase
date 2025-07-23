@@ -17,7 +17,7 @@ import {
   AlertCircle,
   CheckCircle,
   Loader2,
-  Google,
+  Chrome,
   Apple,
   Shield,
   Check
@@ -110,7 +110,7 @@ const SignupPage: React.FC = () => {
     }
   };
 
-  const handleSocialSignup = async (provider: 'google' | 'apple') => {
+  const handleSocialSignup = async (provider: 'Chrome' | 'apple') => {
     setIsLoading(true);
     try {
       // Simulate social signup
@@ -501,12 +501,12 @@ const SignupPage: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <Button
                   variant="glass"
-                  onClick={() => handleSocialSignup('google')}
+                  onClick={() => handleSocialSignup('Chrome')}
                   disabled={isLoading}
-                  leftIcon={<Google className="w-5 h-5" />}
+                  leftIcon={<Chrome className="w-5 h-5" />}
                   className="group"
                 >
-                  Google
+                  Chrome
                 </Button>
                 <Button
                   variant="glass"
