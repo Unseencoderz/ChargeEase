@@ -1,4 +1,3 @@
-// src/pages/WalletPage.tsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -265,7 +264,8 @@ const WalletPage: React.FC = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-white">Auto Top-up</p>
-                  <p className="text-sm text-gray-400">When balance < $25</p>
+                 <p className="text-sm text-gray-400">When balance &lt; $25</p>
+
                 </div>
               </div>
             </motion.button>
@@ -363,20 +363,28 @@ const WalletPage: React.FC = () => {
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <h2 className="text-2xl font-bold text-white">Recent Activity</h2>
-                    <div className="flex space-x-2">
-                      <select 
-                        value={selectedPeriod}
-                        onChange={(e) => setSelectedPeriod(e.target.value)}
-                        className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
-                      >
-                        <option value="7d">Last 7 days</option>
-                        <option value="30d">Last 30 days</option>
-                        <option value="90d">Last 90 days</option>
-                      </select>
-                      <Button variant="ghost" size="sm" leftIcon={<Filter className="w-4 h-4" />}>
-                        Filter
-                      </Button>
-                    </div>
+                    <div className="flex space-x-2 items-center">
+  <div className="relative">
+    <label htmlFor="periodSelect" className="sr-only">
+      Filter by time period
+    </label>
+    <select
+      id="periodSelect"
+      value={selectedPeriod}
+      onChange={(e) => setSelectedPeriod(e.target.value)}
+      className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+    >
+      <option value="7d">Last 7 days</option>
+      <option value="30d">Last 30 days</option>
+      <option value="90d">Last 90 days</option>
+    </select>
+  </div>
+
+  <Button variant="ghost" size="sm" leftIcon={<Filter className="w-4 h-4" />}>
+    Filter
+  </Button>
+</div>
+
                   </div>
 
                   <div className="space-y-3">
@@ -447,27 +455,52 @@ const WalletPage: React.FC = () => {
                   </div>
 
                   {/* Search and Filters */}
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="relative flex-1">
-                      <Input
-                        placeholder="Search transactions..."
-                        className="pl-12"
-                      />
-                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                    </div>
-                    <select className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
-                      <option value="">All Types</option>
-                      <option value="charge">Charging</option>
-                      <option value="topup">Top-ups</option>
-                      <option value="refund">Refunds</option>
-                    </select>
-                    <select className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
-                      <option value="">All Status</option>
-                      <option value="completed">Completed</option>
-                      <option value="pending">Pending</option>
-                      <option value="failed">Failed</option>
-                    </select>
-                  </div>
+                 <div className="flex flex-col sm:flex-row gap-4">
+  {/* Search input with icon */}
+  <div className="relative flex-1">
+    <label htmlFor="transactionSearch" className="sr-only">
+      Search transactions
+    </label>
+    <Input
+      id="transactionSearch"
+      placeholder="Search transactions..."
+      className="pl-12"
+    />
+    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+  </div>
+
+  {/* Select: Transaction Type */}
+  <div>
+    <label htmlFor="typeFilter" className="sr-only">
+      Filter by transaction type
+    </label>
+    <select
+      id="typeFilter"
+      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    >
+      <option value="">All Types</option>
+      <option value="charge">Charging</option>
+      <option value="topup">Top-ups</option>
+      <option value="refund">Refunds</option>
+    </select>
+  </div>
+
+  {/* Select: Transaction Status */}
+  <div>
+    <label htmlFor="statusFilter" className="sr-only">
+      Filter by status
+    </label>
+    <select
+      id="statusFilter"
+      className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+    >
+      <option value="">All Status</option>
+      <option value="completed">Completed</option>
+      <option value="pending">Pending</option>
+      <option value="failed">Failed</option>
+    </select>
+  </div>
+</div>
 
                   {/* Transactions List */}
                   <div className="space-y-3">

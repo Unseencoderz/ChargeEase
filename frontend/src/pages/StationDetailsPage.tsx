@@ -72,9 +72,10 @@ const ForgotPasswordPage: React.FC = () => {
             <div className="space-y-4">
               <Button
                 onClick={() => setIsSubmitted(false)}
-                variant="outline"
+                variant="ghost" // or "primary", "secondary", etc.
                 className="w-full"
               >
+
                 Send another email
               </Button>
               
