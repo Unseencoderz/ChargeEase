@@ -9,7 +9,7 @@
 *Discover over 1 million charging stations worldwide with real-time availability*
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-FF6B35?style=for-the-badge&logoColor=white)](https://chargease.netlify.app/)
-[![Documentation](https://img.shields.io/badge/📖_Documentation-1F2937?style=for-the-badge&logoColor=white)](https://docs.chargeease.com)
+[![Documentation](https://img.shields.io/badge/📖_Documentation-1F2937?style=for-the-badge&logoColor=white)](https://drive.google.com/drive/folders/1wQ-bhPedmQzEgTw-ugqGbJezAWTuHBjB?usp=sharing)
 
 ---
 
