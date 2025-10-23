@@ -10,7 +10,7 @@ const config = {
 };
 
 const app = express();
-
+//cors
 app.use(cors({ origin: config.corsOrigin }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
